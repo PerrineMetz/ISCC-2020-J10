@@ -11,7 +11,6 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     echo "Connected successfully";
-    //on est connectee
     return $pdo;
 }   catch (PDOException $e){
         echo "Connection failed: ". $e->getMessage();
@@ -19,12 +18,13 @@ try {
 }
 
 $pdo = connect_to_database();
-$query = $pdo->query("SELECT * FROM masupertable");
-$user = $query -> fetch();
-var_dump($user);
+$products = $pdo->query("SELECT * FROM produit")->fetchAll();
 
-$users = $pdo -> query("SELECT * FROM masupertable")-> fetchAll();
-var_dump($users);
-foreach ($users as $user) {
-    echo $user ['Nom']. "<br/>";
+echo '<ul>';
+foreach ($products as $product){
+    echo '
+    <li>'.$product['nom'].'</li>';
 }
+echo '</ul>';
+
+?>
